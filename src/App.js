@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import {useState, useEffect} from "react";
+import './app.scss';
+import './index.css';
+import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from "react-router-dom";
+import Main, {mainLoader} from "./layouts/Main";
+import Error from "./pages/Error";
+import Dashboard, {dashboardLoader} from "./pages/Dashboard";
+import Logout from "./pages/Logout";
+import {logoutAction} from "./actions/logoutAction";
+//library imports
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const router = createBrowserRouter(
+    createRoutesFromElements(
+        <Route path='/' element={<Main/>} errorElement={<Error />} loader={mainLoader}>
+            <Route index element={<Dashboard/>} loader={dashboardLoader}/>
+            <Route path='logout' element={<Logout/>} action={logoutAction}/>
+        </Route>
+    )
+)
+
+
+const App = () => {
+    return (
+        <div className='App'>
+            <RouterProvider router={router}/>
+            <ToastContainer />
+        </div>
+    )
 }
 
 export default App;
