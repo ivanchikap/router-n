@@ -1,5 +1,5 @@
 import logomark from '../assets/logomark.svg'
-import {NavLink, Form, redirect} from "react-router-dom";
+import {NavLink, Form} from "react-router-dom";
 import {TrashIcon} from "@heroicons/react/20/solid";
 
 const Nav = ({userName}) => {
